@@ -10,7 +10,7 @@ export default function GameOver({
 }) {
   let tournamentCompleted = false;
   let tournamentResult;
-  if (noOfWins?.X + noOfWins?.O >= noOfWins.max - 1) {
+  if (noOfWins?.X + noOfWins?.O + noOfWins?.draw >= noOfWins?.max - 1) {
     tournamentCompleted = true;
   }
 
@@ -18,42 +18,42 @@ export default function GameOver({
     if (winnerSymbol === "X") {
       const winX = noOfWins.X + 1;
       if (winX === noOfWins.O) {
-        tournamentResult = `${noOfWins.max} Match ka Series Draw ho Gaya re babu!`;
+        tournamentResult = `${noOfWins?.max} Match ka Series Draw ho Gaya re babu!`;
       } else if (winX > noOfWins.O) {
         tournamentResult = (
           <>
-            <span className="player">{players.X}</span> {noOfWins.max} Match ka
-            series Jeet Gaye Hain, Congratulations{" "}
-            <span className="player">{players.X}</span>!
+            <span className="player">{players.X}</span> {noOfWins?.max} Match ka
+            series Jeet Gaya!<br /> Badhai Ho{" "}
+            <span className="player">{players?.X}</span>! &#127881; &#127881;
           </>
         );
       } else if (winX < noOfWins.O) {
         tournamentResult = (
           <>
-            <span className="player">{players.O}</span> {noOfWins.max} Match ka
-            series Jeet Gaye Hain, Congratulations{" "}
-            <span className="player">{players.O}</span>!
+            <span className="player">{players.O}</span> {noOfWins?.max} Match ka
+            series Jeet Gaya!<br /> Badhai Ho{" "}
+            <span className="player">{players.O}</span>! &#127881; &#127881;
           </>
         );
       }
     } else {
       const winO = noOfWins.O + 1;
       if (winO === noOfWins.X) {
-        tournamentResult = `${noOfWins.max} Match ka Series Draw ho Gaya re babu!`;
+        tournamentResult = `${noOfWins?.max} Match ka Series Draw ho Gaya re babu!`;
       } else if (winO > noOfWins.X) {
         tournamentResult = (
           <>
-            <span className="player">{players.O}</span> {noOfWins.max} Match ka
-            series Jeet Gaye Hain, Congratulations{" "}
-            <span className="player">{players.O}</span>!
+            <span className="player">{players.O}</span> {noOfWins?.max} Match ka
+            series Jeet Gaya!<br /> Badhai Ho{" "}
+            <span className="player">{players.O}</span>! &#127881; &#127881;
           </>
         );
       } else if (winO < noOfWins.X) {
         tournamentResult = (
           <>
             <span className="player">{players.X}</span> {noOfWins.max} Match ka
-            series Jeet Gaye Hain, Congratulations{" "}
-            <span className="player">{players.X}</span>!
+            series Jeet Gaya!<br /> Badhai Ho{" "}
+            <span className="player">{players.X}</span>! &#127881; &#127881;
           </>
         );
       }
@@ -61,28 +61,28 @@ export default function GameOver({
   }
 
   return (
-    <div id="game-over">
-      <h2>Game Over!</h2>
+    <div id="game-over" style={tournamentCompleted ? {backgroundColor: 'rgb(0 91 49 / 90%)'}: null}>
+      <h2>{tournamentCompleted ? `Series Khatam!` : `Game Khatam`}!</h2>
       {!tournamentCompleted ? (
         <>
           {winner && (
             <p>
               <span className="player">{winner}</span>{" "}
-              {noOfWins[winnerSymbol] + 1
-                ? `${noOfWins[winnerSymbol] + 1} Match`
+              {noOfWins?.[winnerSymbol] + 1
+                ? `${noOfWins?.[winnerSymbol] + 1} Match`
                 : null}{" "}
               Jeet Gaya, Ab Tera Kya Hoga Re{" "}
-              <span className="player">{looser}</span> Kaliya!
+              <span className="player">{looser}</span>!
             </p>
           )}
-          {!winner && <p>Draw huwa re kaliya!</p>}
+          {!winner && <p>Arrey yaar! DRAW ho gaya, Ab Kya Hoga &#128530;</p>}
         </>
       ) : (
         <p>{tournamentResult}</p>
       )}
 
       <p>
-        <button onClick={onRestart}>Rematch!</button>
+        <button onClick={onRestart}>{tournamentCompleted ? `Series Fir Se Start Karna Hai` : `Game Fir se Start Karna Hai`} &#128582; ? </button>
       </p>
     </div>
   );

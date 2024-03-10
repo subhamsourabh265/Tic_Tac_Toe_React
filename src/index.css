@@ -201,10 +201,11 @@ ol {
 
 #game-over h2 {
   font-family: 'Caprasimo', cursive;
-  font-size: 3rem;
+  font-size: 2.4rem;
   text-align: center;
-  color: #fcd256;
+  color: #d9d5d6;
   margin: 0;
+  text-decoration: underline;
 }
 
 #game-over p {
@@ -212,20 +213,22 @@ ol {
   text-align: center;
   color: #e1dec7;
   margin-top: 2px;
+  font-weight: bold;
 }
 
 #game-over button {
   display: block;
   margin: 0 auto;
-  font-size: 1.5rem;
+  font-size: 20px;
   background: none;
-  border: 2px solid #fcd256;
+  border: 2px solid #f1f0ed;
   color: #fcd256;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s, color 0.2s;
   box-shadow: 0 0 8px rgba(255, 187, 0, 0.4);
+  font-weight: bold;
 }
 
 #game-over button:hover {

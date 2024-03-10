@@ -5,6 +5,7 @@ import Log from "./components/Log/Log";
 import { WINNING_COMBINATIONS } from "./winning-combinations";
 import GameOver from "./components/GameOver/GameOver";
 import Dropdown from "./components/DropDown/DropDown";
+import PopUp from "./components/PopUp/PopUp";
 
 const initialGameBoard = [
   [null, null, null],
@@ -32,7 +33,9 @@ function App() {
   const [winCount, setWinCount] = useState({
     X: 0,
     O: 0,
+    draw: 0,
     max: 0,
+    showWarning: false
   });
 
   const activePlayer = derivedActivePlayer(gameTurns);
@@ -54,7 +57,6 @@ function App() {
   };
   let winnerBoxes;
   let winnerSymbol;
-  // let looserSymbol;
 
   for (const combination of WINNING_COMBINATIONS) {
     const firstSquareSymbol = gameBoard[combination[0].row][combination[0].col];
@@ -77,6 +79,8 @@ function App() {
         second: [combination[1].row, combination[1].col],
         third: [combination[2].row, combination[2].col],
       };
+    } else {
+      
     }
   }
 
@@ -99,33 +103,77 @@ function App() {
 
       return updatedTurns;
     });
+    setWinCount(prev => {
+      if (prev?.max === 0) {
+        return ({
+          ...prev,
+          showWarning: true
+        });
+      }
+      return ({
+        ...prev,
+        showWarning: false
+      });
+    });
   };
 
   const handleRestart = (winnerSymbol) => {
     setGameTurns([]);
     setWinCount((prevCount) => {
-      if (prevCount.X + prevCount.O >= prevCount.max - 1) {
-        return {
-          ...prevCount,
+      let updatedState = {...prevCount};
+      if (updatedState.X + updatedState.O + updatedState.draw >= (updatedState?.max - 1)) {
+        updatedState = {
+          ...updatedState,
           X: 0,
           O: 0,
+          draw:0
         };
+        return updatedState;
       }
-      return {
-        ...prevCount,
-        [winnerSymbol]: prevCount[winnerSymbol] + 1,
+
+      if(hasDraw) {
+        updatedState =  {
+          ...updatedState,
+          'draw': updatedState['draw'] + 1
+        }
+      }
+
+      updatedState = {
+        ...updatedState,
+        [winnerSymbol]: updatedState[winnerSymbol] + 1,
       };
+      return updatedState;
     });
   };
 
   const selectMatch = (value) => {
-    setWinCount((prevCount) => ({
-      ...prevCount,
+    setGameTurns([]);
+    setWinCount(() => ({
+      X: 0,
+      O: 0,
+      draw: 0,
       max: value,
+      showWarning: false
     }));
   };
 
   function handlePlayerNameChange(symbol, newName) {
+    setWinCount(prev => {
+      let updatedState = {...prev};
+      if (prev?.max === 0) {
+        updatedState = {
+          ...updatedState,
+          showWarning: true
+        };
+      } else {
+        updatedState =  {
+          ...updatedState,
+          showWarning: false
+        };
+      }
+      return updatedState;
+      
+    });
     setPlayers((prevPlayers) => {
       return {
         ...prevPlayers,
@@ -134,42 +182,54 @@ function App() {
     });
   }
 
+  function hidePopup() {
+    setGameTurns([]);
+    setWinCount(prevCount => ({
+      ...prevCount,
+      showWarning: false
+    }));
+  }
+
   return (
-    <main>
-      <div id="game-container">
-        <ol id="players" className="highlight-player">
-          <Player
-            initialName="OMI LAL"
-            symbol="X"
-            isActive={activePlayer === "X"}
-            onChangeName={handlePlayerNameChange}
+    <>
+      <main>
+        <div id="game-container">
+          <ol id="players" className="highlight-player">
+            <Player
+              initialName="OMI LAL"
+              symbol="X"
+              isActive={activePlayer === "X"}
+              onChangeName={handlePlayerNameChange}
+            />
+            <Player
+              initialName="MAHI LAL"
+              symbol="O"
+              isActive={activePlayer === "O"}
+              onChangeName={handlePlayerNameChange}
+            />
+          </ol>
+          <Dropdown selectMatch={selectMatch} />
+          {(winner || hasDraw) && (
+            <GameOver
+              winner={winner}
+              winnerSymbol={winnerSymbol}
+              looser={looser}
+              noOfWins={winCount}
+              players={players}
+              onRestart={() => handleRestart(winnerSymbol)}
+            />
+          )}
+          <GameBoard
+            selectSquare={changlePlayer}
+            board={gameBoard}
+            winnerBoxes={winnerBoxes}
           />
-          <Player
-            initialName="MAHI LAL"
-            symbol="O"
-            isActive={activePlayer === "O"}
-            onChangeName={handlePlayerNameChange}
-          />
-        </ol>
-        <Dropdown selectMatch={selectMatch} />
-        {(winner || hasDraw) && (
-          <GameOver
-            winner={winner}
-            winnerSymbol={winnerSymbol}
-            looser={looser}
-            noOfWins={winCount}
-            players={players}
-            onRestart={() => handleRestart(winnerSymbol)}
-          />
-        )}
-        <GameBoard
-          selectSquare={changlePlayer}
-          board={gameBoard}
-          winnerBoxes={winnerBoxes}
-        />
-      </div>
-      <Log players={players} noOfWins={winCount} />
-    </main>
+        </div>
+        {!!(winCount.X || winCount.O) && <Log players={players} noOfWins={winCount} />}
+      </main>
+      {(winCount?.showWarning) ? <PopUp players={players} hidePopup={hidePopup} /> : null}
+    </>
+    
   );
 }
 

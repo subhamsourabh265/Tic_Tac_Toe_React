@@ -27,6 +27,11 @@ export default function Log({ players, noOfWins }) {
           Tak Nahi Jeeta Hai!
         </p>
       )}
+      {noOfWins?.draw ? (
+        <p>
+          {noOfWins.draw} Match Draw vi huwa hai babu!
+        </p>
+      ) : null}
     </section>
   );
 }

@@ -158,22 +158,6 @@ function App() {
   };
 
   function handlePlayerNameChange(symbol, newName) {
-    setWinCount(prev => {
-      let updatedState = {...prev};
-      if (prev?.max === 0) {
-        updatedState = {
-          ...updatedState,
-          showWarning: true
-        };
-      } else {
-        updatedState =  {
-          ...updatedState,
-          showWarning: false
-        };
-      }
-      return updatedState;
-      
-    });
     setPlayers((prevPlayers) => {
       return {
         ...prevPlayers,

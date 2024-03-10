@@ -41,3 +41,7 @@ div#model-box p:nth-child(n+1) {
     margin-bottom: 12px;
 }
 
+span {
+    text-transform: uppercase;
+}
+

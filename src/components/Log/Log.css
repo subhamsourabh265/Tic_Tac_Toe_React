@@ -1,0 +1,15 @@
+#log {
+    text-align: center;
+    background: linear-gradient(#383624, #282617);
+    font-size: 18px;
+    color: #fbfbfb;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.player-names {
+    display: inline;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

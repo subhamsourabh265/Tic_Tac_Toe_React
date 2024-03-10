@@ -44,7 +44,7 @@ h1 {
 #game-container {
   max-width: 20rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1px 2rem 2rem 2rem;
   border-radius: 6px;
   background: linear-gradient(#383624, #282617);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -159,7 +159,7 @@ ol {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
-  margin: 3rem 0;
+  margin: 2rem 0 0 0;
   padding: 0;
   flex-direction: column;
 }
@@ -195,13 +195,13 @@ ol {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(40, 38, 23, 0.80);
+  background-color: rgba(40, 38, 23, 0.90);
   animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.65, 0.52);
 }
 
 #game-over h2 {
   font-family: 'Caprasimo', cursive;
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: center;
   color: #fcd256;
   margin: 0;
@@ -211,6 +211,7 @@ ol {
   font-size: 2rem;
   text-align: center;
   color: #e1dec7;
+  margin-top: 2px;
 }
 
 #game-over button {

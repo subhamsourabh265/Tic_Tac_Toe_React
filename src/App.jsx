@@ -25,7 +25,7 @@ function derivedActivePlayer(gameTurns) {
 
 function App() {
   const [players, setPlayers] = useState({
-    X: "OMI LAL",
+    X: "OMEE LAL",
     O: "MAHI LAL",
   });
   const [gameTurns, setGameTurns] = useState([]);
@@ -180,7 +180,7 @@ function App() {
         <div id="game-container">
           <ol id="players" className="highlight-player">
             <Player
-              initialName="OMI LAL"
+              initialName="OMEE LAL"
               symbol="X"
               isActive={activePlayer === "X"}
               onChangeName={handlePlayerNameChange}
@@ -209,7 +209,7 @@ function App() {
             winnerBoxes={winnerBoxes}
           />
         </div>
-        {!!(winCount.X || winCount.O) && <Log players={players} noOfWins={winCount} />}
+        {!!(winCount.X || winCount.O || winCount.draw) && <Log players={players} noOfWins={winCount} />}
       </main>
       {(winCount?.showWarning) ? <PopUp players={players} hidePopup={hidePopup} /> : null}
     </>

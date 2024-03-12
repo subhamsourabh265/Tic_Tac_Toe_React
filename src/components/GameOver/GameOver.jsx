@@ -36,7 +36,7 @@ export default function GameOver({
           </>
         );
       }
-    } else {
+    } else if (winnerSymbol === "O") {
       const winO = noOfWins.O + 1;
       if (winO === noOfWins.X) {
         tournamentResult = `${noOfWins?.max} Match ka Series Draw ho Gaya re babu!`;
@@ -57,11 +57,13 @@ export default function GameOver({
           </>
         );
       }
+    } else {
+      tournamentResult = `${noOfWins?.max} Match ka Series Draw ho Gaya re babu!`;
     }
   }
 
   return (
-    <div id="game-over" style={tournamentCompleted ? {backgroundColor: 'rgb(0 91 49 / 90%)'}: null}>
+        <div id="game-over" style={tournamentCompleted ? {backgroundColor: 'rgb(0 91 49 / 90%)'}: null}>
       <h2>{tournamentCompleted ? `Series Khatam!` : `Game Khatam`}!</h2>
       {!tournamentCompleted ? (
         <>
@@ -85,5 +87,5 @@ export default function GameOver({
         <button onClick={onRestart}>{tournamentCompleted ? `Series Fir Se Start Karna Hai` : `Game Fir se Start Karna Hai`} &#128582; ? </button>
       </p>
     </div>
-  );
+      );
 }

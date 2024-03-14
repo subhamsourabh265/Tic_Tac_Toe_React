@@ -58,7 +58,25 @@ export default function GameOver({
         );
       }
     } else {
-      tournamentResult = `${noOfWins?.max} Match ka Series Draw ho Gaya re babu!`;
+      if (noOfWins.O === noOfWins.X) {
+        tournamentResult = `${noOfWins?.max} Match ka Series Draw ho Gaya re babu!`;
+      } else if (noOfWins.O > noOfWins.X) {
+        tournamentResult = (
+          <>
+            <span className="player">{players.O}</span> {noOfWins?.max} Match ka
+            series Jeet Gaya!<br /> Badhai Ho{" "}
+            <span className="player">{players.O}</span>! &#127881; &#127881;
+          </>
+        );
+      } else if (noOfWins.O < noOfWins.X) {
+        tournamentResult = (
+          <>
+            <span className="player">{players.X}</span> {noOfWins.max} Match ka
+            series Jeet Gaya!<br /> Badhai Ho{" "}
+            <span className="player">{players.X}</span>! &#127881; &#127881;
+          </>
+        );
+      }
     }
   }
 
